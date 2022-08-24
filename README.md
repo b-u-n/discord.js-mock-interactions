@@ -25,8 +25,7 @@ Okay, so you already have a Discord client set up. Use that.
 import { client } from Discord.js;
 import { optionsBuilder, interactionBuilder } from 'discord.js-mock-interactions';
 
-//gib slep ur boens
-const slep = ( boens ) => new Promise(resolve => setTimeout(resolve, boens));
+const slep = ( boens ) => new Promise(resolve => setTimeout(resolve, boens));//gib slep ur boens
 
 
 //const client = new Discord.Client({ intents: []}); //you already have your client set up, 
