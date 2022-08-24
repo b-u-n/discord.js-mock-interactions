@@ -10,7 +10,7 @@ This library takes the simplest path: Create a unit testing bot, mock interactio
 
 Any API or library calls within your commands will still work, because we're not mocking the client. So you can test within a real world context, just without human interaction! ^-^
 
-By default, this library only reaches out to the Discord API on initialization of the interaction & options. Your commands may also reach out to the Discord API, but you'd have to go out of your way to be spammy, yeah?
+By default, this library only reaches out to the Discord API on initialization of the interaction and options, and creation of a new option value. Your commands may also reach out to the Discord API, but you'd have to go out of your way to be spammy, yeah?
 
 ## What you'll need
   1. A bot account for your CI/CD pipeline, as well as one for each dev who wants to test locally (that would be all of your devs).
@@ -71,7 +71,7 @@ const checkBalance = interaction("APPLICATION_COMMAND",
   "balance", 
    null,
    checkBalanceReply,
-   [opts.build('bun','user')]);
+   [await opts.build('bun','user')]);
 client.emit('interactionCreate', checkBalance);
 ```
 
@@ -83,13 +83,13 @@ Let's start by creating a reply function to override **interaction.reply**. This
 
   `{type: 'USER', name: 'user', value: '<user_id>', member: Discord.Member, user: Discord.User}` 
   
-Thankfully, **optionsBuilder** already handled all of that Discord stuff, so we can just use **opts.build('bun','user')**!
+Thankfully, **optionsBuilder** already handled all of that Discord stuff, so we can just use **await opts.build('bun','user')**!
  
 We create an interaction from our base interaction.
 
-`const checkBalance = interaction("APPLICATION_COMMAND", "balance", null, checkBalanceReply, [opts.build('bun','user')]);`
+`const checkBalance = interaction("APPLICATION_COMMAND", "balance", null, checkBalanceReply, [await opts.build('bun','user')]);`
 
-Here, **opts.build('bun','user')** finds the opt with id 'bun' and returns a copy with its name set to 'user'.
+Here, **await opts.build('bun','user')** finds the opt with id 'bun' and returns a copy with its name set to 'user'.
 
 Then we simply emit the interaction. :)
 
@@ -106,7 +106,7 @@ const gibMuns = interaction("APPLICATION_COMMAND",
   "modifybal",
    "add",
    gibMunsReply,
-   [opts.build('bun','user'), opts.build('int','amount',1000)]);
+   [await opts.build('bun','user'), await opts.build('int','amount',1000)]);
 client.emit('interactionCreate', gibMuns);
 ```
 

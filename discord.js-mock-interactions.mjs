@@ -23,10 +23,29 @@ export const optionsBuilder = async ( client, guildId, opts ) => {
     }
     return o;
   }));
-  return {build: ( id, name, value ) => {
+  return {build: async ( id, name, value ) => {
     let opt = opts.find(e => e.id === id)
     if(name) opt.name = name;
-    if(value) opt.value = value;
+    if(value) {
+      opt.value=value;
+      switch(opt.type){
+        case 'USER':
+          opt.member = await guild.members.fetch(opt.value);
+          opt.user = opt.member.user;
+          break;
+        case 'CHANNEL':
+          opt.channel = await guild.channels.fetch(opt.value);
+          break;
+        case 'ROLE':
+          opt.role = await guild.roles.fetch(opt.value);
+          break;
+        case 'MENTIONABLE':
+          opt.role = await guild.roles.fetch(opt.value);
+          opt.member = await guild.members.fetch(opt.value);
+          if(opt.member) opt.user = opt.member.user;
+        default:break;
+      }
+    }
     return opt;
   }}
 }
