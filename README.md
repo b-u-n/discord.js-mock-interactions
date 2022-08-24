@@ -8,7 +8,7 @@ This library takes the simplest path: Create a unit testing bot, mock interactio
 
 Any API or library calls within your commands will still work, because we're not mocking the client. So you can test within a real world context, just without human interaction! ^-^
 
-By default, this library only reaches out to the Discord API on the initialization of the interaction & options. Your commands may also reach out to the Discord API, but you'd have to go out of your way to be spammy, yeah?
+By default, this library only reaches out to the Discord API on initialization of the interaction & options. Your commands may also reach out to the Discord API, but you'd have to go out of your way to be spammy, yeah?
 
 ## What you'll need
   1. A bot account for your CI/CD pipeline, as well as one for each dev who wants to test locally (that would be all of your devs).
