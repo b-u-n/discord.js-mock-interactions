@@ -25,12 +25,18 @@ import { optionsBuilder, interactionBuilder } from 'discord.js-mock-interactions
 const slep = ( boens ) => new Promise(resolve => setTimeout(resolve, boens));
 
 
-//const client = new Discord.Client({ intents: []}); //you already have your client set up, just make sure you're using the bot token you created for testing
+//const client = new Discord.Client({ intents: []}); //you already have your client set up, 
+  //just make sure you're using the bot token you created for testing
 
 //first, we build our base interaction
-let interaction = await interactionBuilder(client, "<guild_id_here>", "<channel_id_here_for_testing>", "<user_id_for_interaction_source>");
+let interaction = await interactionBuilder(client,
+  "<guild_id_here>",
+  "<channel_id_here_for_testing>",
+  "<user_id_for_interaction_source>");
 
-//initialize the types of options we'll use for testing--values can come later (but defaults are nice)!
+
+//initialize the types of options we'll use for testing--
+//values can come later (but defaults are nice)!
 const opts = await optionsBuilder(client, "<guild_id_here>", [
   { id: 'string', type: 'STRING', value: 'cheeses' },
   { id: 'int', type: 'INTEGER', value: 1 },
@@ -43,17 +49,25 @@ const opts = await optionsBuilder(client, "<guild_id_here>", [
   { id: 'num', type: 'NUMBER', value: 3.14 }
 ]);
 
-//note two users--so we can have source / target for multi-user interactions, this is why everything has an id--make as many whatever as you need!
+//note two users--so we can have source / target for multi-user interactions
+//without having to remember actual discord ids
+//this is why each option has an id--make as many of whatever you need!
 
-//you'll notice we don't handle subcommand or subcommand group options--this is wise. we have an option to test subcommands, but groups isn't something we use, so send a PR or defined use case and we'll sort it out. ^-^
+//you'll notice we don't handle subcommand or subcommand group options--this is wise. 
+//we have an option to test subcommands, but groups isn't something we use
+//so send a PR or well-defined use case and we'll sort it out. ^-^
 
 
-//create a check balance interaction from our base interaction, passing in an array of options built using our option ids up there ^
+//create a check balance interaction from our base interaction
+//passing in an array of options built using our option ids up there ^
 
 //we start by creating a reply function to override interaction.reply
 const checkBalanceReply = async ( resp ) => console.log(JSON.stringify(resp));
 
-//this one takes the 'bun' user and sets its name to 'user'. we're fine with the existing value, so none is passed :)
+//creating the interaction "/balance @bun", which expects an opt with {type: 'USER', name: 'user', value: '<user_id>'}
+//opts.build('bun','user') finds the 'bun' opt and returns an opt with its name set to 'user'
+//we're fine with the existing value (for user id), so none is passed :)
+//we pass null because no subcommand, and i'm not sure what "APPLICATION_COMMAND" is, but it sorts us
 const checkBalance = interaction("APPLICATION_COMMAND", "balance", null, checkBalanceReply, [opts.build('bun','user')]);
 
 //aaand emit the interaction
@@ -67,6 +81,7 @@ const gibMuns = interaction("APPLICATION_COMMAND", "modifybal", "add", gibMunsRe
 client.emit('interactionCreate', gibMuns);
 
 //^ this one calls "/modifybal add @bun 1000"
+//which expects opts [{type: 'USER', name: 'user', value: '<user_id>'},{type: 'INTEGER', name: 'amount', value: 1000}]
 
 
 //easy, let's wait a second
