@@ -63,6 +63,16 @@ We support testing subcommands, but you'll notice we don't handle subcommand or 
 
 ## Mocking an Interaction and Receiving a Reply
 
+```
+const checkBalanceReply = async ( resp ) => console.log(JSON.stringify(resp));
+const checkBalance = interaction("APPLICATION_COMMAND", 
+  "balance", 
+   null,
+   checkBalanceReply,
+   [opts.build('bun','user')]);
+client.emit('interactionCreate', checkBalance);
+```
+
 Let's start by creating a reply function to override **interaction.reply**. This is where we would do verification on a successful reply to our interaction.
 
 `const checkBalanceReply = async ( resp ) => console.log(JSON.stringify(resp));`
@@ -82,19 +92,6 @@ Here, **opts.build('bun','user')** finds the opt with id 'bun' and returns a cop
 Then we simply emit the interaction. :)
 
 `client.emit('interactionCreate', checkBalance);`
-
-### tl;dr
-
-```
-const checkBalanceReply = async ( resp ) => console.log(JSON.stringify(resp));
-const checkBalance = interaction("APPLICATION_COMMAND", 
-  "balance", 
-   null,
-   checkBalanceReply,
-   [opts.build('bun','user')]);
-client.emit('interactionCreate', checkBalance);
-```
-
 
 ## Mocking a Sub Command
 
