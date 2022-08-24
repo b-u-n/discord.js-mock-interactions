@@ -8,6 +8,8 @@ This library takes the simplest path: Create a unit testing bot, mock interactio
 
 Any API or library calls within your commands will still work, because we're not mocking the client. So you can test within a real world context, just without human interaction! ^-^
 
+By default, this library only reaches out to the Discord API on the initialization of the interaction & options. Your commands may also reach out to the Discord API, but you'd have to go out of your way to be spammy, yeah?
+
 ## What you'll need
   1. A bot account for your CI/CD pipeline, as well as one for each dev who wants to test locally (that would be all of your devs).
   2. A target Guild ID, Channel ID, and Role ID that the bot has access to.
@@ -77,4 +79,7 @@ client.emit('interactionCreate', checkBalance);
 
 ```
 
+## To Do
+
+Proper examples, but honestly everyone's unit testing configuration will be different--this library only provides a way to mock discord.js interactions and leaves test implementation up to you. :)
 
