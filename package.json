@@ -1,0 +1,40 @@
+{
+  "name": "discord.js-mock-interactions",
+  "version": "0.0.1",
+  "description": "Mock interactions for discord.js testing.",
+  "main": "discord.js-mock-interactions.cjs",
+  "module": "discord.js-mock-interactions.mjs",
+  "scripts": {
+    "test": "mocha ./test/*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/b-u-n/tuf-resil.git"
+  },
+  "keywords": [
+    "Discord",
+    "discord.js",
+    "discordjs",
+    "slash commands",
+    "interactions",
+    "mock",
+    "testing",
+    "unit testing",
+    "tdd"
+  ],
+  "author": "b-u-n",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/b-u-n/tuf-resil/issues"
+  },
+  "homepage": "https://github.com/b-u-n/tuf-resil#readme",
+  "dependencies": {
+    "discord.js": "^14.3.0"
+  },
+  "exports": {
+    ".": {
+      "require": "./discord.js-mock-interactions.cjs",
+      "import": "./discord.js-mock-interactions.mjs"
+    }
+  }
+}

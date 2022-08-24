@@ -1,5 +1,7 @@
 # Mock Interactions for discord.js unit testing
 
+Supports discord.js v14.3
+
 ## Introduction
 
 Often, the simplest solution is best. You'll find people mocking libraries and APIs to do their unit testing, and the truth is, they're going to be reverse engineering libraries and APIs every time Discord or Discord.js make updates, until Discord stops existing. They're going to run into issues where they haven't mocked something they need, and need to go update their testing library for interactions.
