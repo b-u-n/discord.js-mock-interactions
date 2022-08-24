@@ -110,7 +110,7 @@ const gibMuns = interaction("APPLICATION_COMMAND",
 client.emit('interactionCreate', gibMuns);
 ```
 
-**/modifybal add @bun 1000**, which expects opts:
+**/modifybal add @bun 1000** expects opts:
   
   `{type: 'USER', name: 'user', value: '<user_id>', member: Discord.Member, user: Discord.User}`
   
