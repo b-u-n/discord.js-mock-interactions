@@ -9,7 +9,7 @@ This library takes the simplest path: Create a unit testing bot, mock interactio
 Any API or library calls within your commands will still work, because we're not mocking the client. So you can test within a real world context, just without human interaction! ^-^
 
 ## What you'll need
-  1. A bot account for your CI/CD testing flow, as well as one for each dev who wants to test locally (that would be all of your devs).
+  1. A bot account for your CI/CD pipeline, as well as one for each dev who wants to test locally (that would be all of your devs).
   2. A target Guild ID, Channel ID, and Role ID that the bot has access to.
   3. A non-bot User ID to originate the interactions from. (These interactions are NOT posted to the Discord API, however, I would recommend a user that you own)
 
