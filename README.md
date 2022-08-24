@@ -71,7 +71,7 @@ We'll be creating the interaction **/balance @bun**, which expects the following
 
   `{type: 'USER', name: 'user', value: '<user_id>', member: Discord.Member, user: Discord.User}` 
   
-Thankfully, **optionsBuilder** already handled all of that Discord stuff!
+Thankfully, **optionsBuilder** already handled all of that Discord stuff, so we can just use **opts.build('bun','user')**!
  
 We create an interaction from our base interaction.
 
