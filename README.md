@@ -63,25 +63,38 @@ We support testing subcommands, but you'll notice we don't handle subcommand or 
 
 ## Mocking an Interaction and Receiving a Reply
 
-Let's start by creating a reply function to override `interaction.reply`, that will be passed to our interaction. This is where we would do verification on a successful reply to our interaction.
+Let's start by creating a reply function to override **interaction.reply**. This is where we would do verification on a successful reply to our interaction.
 
 `const checkBalanceReply = async ( resp ) => console.log(JSON.stringify(resp));`
 
-We'll be creating the interaction `/balance @bun`, which expects the following option:
+We'll be creating the interaction **/balance @bun**, which expects the following option:
 
   `{type: 'USER', name: 'user', value: '<user_id>', member: Discord.Member, user: Discord.User}` 
   
-Thankfully, `optionsBuilder` already handled all of that discord stuff!
+Thankfully, **optionsBuilder** already handled all of that Discord stuff!
  
 We create an interaction from our base interaction.
 
 `const checkBalance = interaction("APPLICATION_COMMAND", "balance", null, checkBalanceReply, [opts.build('bun','user')]);`
 
-Here, `opts.build('bun','user')` finds the opt with id 'bun' and returns a copy with its name set to 'user'.
+Here, **opts.build('bun','user')** finds the opt with id 'bun' and returns a copy with its name set to 'user'.
 
 Then we simply emit the interaction. :)
 
 `client.emit('interactionCreate', checkBalance);`
+
+### tl;dr
+
+```
+const checkBalanceReply = async ( resp ) => console.log(JSON.stringify(resp));
+const checkBalance = interaction("APPLICATION_COMMAND", 
+  "balance", 
+   null,
+   checkBalanceReply,
+   [opts.build('bun','user')]);
+client.emit('interactionCreate', checkBalance);
+```
+
 
 ## Mocking a Sub Command
 
@@ -97,7 +110,7 @@ const gibMuns = interaction("APPLICATION_COMMAND",
 client.emit('interactionCreate', gibMuns);
 ```
 
-This one calls `/modifybal add @bun 1000`, which expects opts:
+This one calls **/modifybal add @bun 1000**, which expects opts:
   
   `{type: 'USER', name: 'user', value: '<user_id>', member: Discord.Member, user: Discord.User}`
   
