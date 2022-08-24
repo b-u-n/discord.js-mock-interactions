@@ -36,7 +36,7 @@ let interaction = await interactionBuilder(client,
 
 
 //initialize the types of options we'll use for testing--
-//values can come later (but defaults are nice)!
+  //values can come later (but defaults are nice)!
 const opts = await optionsBuilder(client, "<guild_id_here>", [
   { id: 'string', type: 'STRING', value: 'cheeses' },
   { id: 'int', type: 'INTEGER', value: 1 },
@@ -50,24 +50,24 @@ const opts = await optionsBuilder(client, "<guild_id_here>", [
 ]);
 
 //note two users--so we can have source / target for multi-user interactions
-//without having to remember actual discord ids
-//this is why each option has an id--make as many of whatever you need!
+  //without having to remember actual discord ids
+  //this is why each option has an id--make as many of whatever you need!
 
 //you'll notice we don't handle subcommand or subcommand group options--this is wise. 
-//we have an option to test subcommands, but groups isn't something we use
-//so send a PR or well-defined use case and we'll sort it out. ^-^
+  //we have an option to test subcommands, but groups isn't something we use
+  //so send a PR or well-defined use case and we'll sort it out. ^-^
 
 
 //create a check balance interaction from our base interaction
-//passing in an array of options built using our option ids up there ^
+  //passing in an array of options built using our option ids up there ^
 
 //we start by creating a reply function to override interaction.reply
 const checkBalanceReply = async ( resp ) => console.log(JSON.stringify(resp));
 
 //creating the interaction "/balance @bun", which expects an opt with {type: 'USER', name: 'user', value: '<user_id>'}
-//opts.build('bun','user') finds the 'bun' opt and returns an opt with its name set to 'user'
-//we're fine with the existing value (for user id), so none is passed :)
-//we pass null because no subcommand, and i'm not sure what "APPLICATION_COMMAND" is, but it sorts us
+  //opts.build('bun','user') finds the 'bun' opt and returns an opt with its name set to 'user'
+  //we're fine with the existing value (for user id), so none is passed :)
+  //we pass null because no subcommand, and i'm not sure what "APPLICATION_COMMAND" is, but it sorts us
 const checkBalance = interaction("APPLICATION_COMMAND", "balance", null, checkBalanceReply, [opts.build('bun','user')]);
 
 //aaand emit the interaction
@@ -81,11 +81,11 @@ const gibMuns = interaction("APPLICATION_COMMAND", "modifybal", "add", gibMunsRe
 client.emit('interactionCreate', gibMuns);
 
 //^ this one calls "/modifybal add @bun 1000"
-//which expects opts [{type: 'USER', name: 'user', value: '<user_id>'},{type: 'INTEGER', name: 'amount', value: 1000}]
+  //which expects opts [{type: 'USER', name: 'user', value: '<user_id>'},{type: 'INTEGER', name: 'amount', value: 1000}]
 
 
 //easy, let's wait a second
-//and check our bal again :)
+  //and check our bal again :)
 await slep(1000);
 client.emit('interactionCreate', checkBalance);
 
