@@ -2,11 +2,16 @@
 
 ## Introduction
 
-Often, the simplest solution is best. You'll find people mocking libraries and APIs to do their unit testing, and the truth is, they're going to be reverse engineering libraries and APIs every time Discord or Discord.js make updates, until Discord stops existing.
+Often, the simplest solution is best. You'll find people mocking libraries and APIs to do their unit testing, and the truth is, they're going to be reverse engineering libraries and APIs every time Discord or Discord.js make updates, until Discord stops existing. They're going to run into issues where they haven't mocked something they need, and need to go update their testing library for interactions.
 
 This library takes the simplest path: Create a unit testing bot, mock interactions, ???, profit.
 
 Any API or library calls within your commands will still work, because we're not mocking the client. So you can test within a real world context, just without human interaction! ^-^
+
+## What you'll need
+  1. A bot account for your CI/CD testing flow, as well as one for each dev who wants to test locally (that would be all of your devs).
+  2. A target Guild ID, Channel ID, and Role ID that the bot has access to.
+  3. A non-bot User ID to originate the interactions from. (These interactions are NOT posted to the Discord API, however, I would recommend a user that you own)
 
 ## tl;dr
 
@@ -18,7 +23,7 @@ import { optionsBuilder, interactionBuilder } from 'discord.js-mock-interactions
 const slep = ( boens ) => new Promise(resolve => setTimeout(resolve, boens));
 
 
-//const client = new Discord.Client({ intents: []}); //you already have your client set up
+//const client = new Discord.Client({ intents: []}); //you already have your client set up, just make sure you're using the bot token you created for testing
 
 //first, we build our base interaction
 let interaction = await interactionBuilder(client, "<guild_id_here>", "<channel_id_here_for_testing>", "<user_id_for_interaction_source>");
@@ -71,3 +76,5 @@ client.emit('interactionCreate', checkBalance);
 //ahhh now you see how easy unit testing interactions can be :)
 
 ```
+
+
