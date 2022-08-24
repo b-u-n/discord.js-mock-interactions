@@ -22,6 +22,7 @@ import { client } from Discord.js;
 import { optionsBuilder, interactionBuilder } from 'discord.js-mock-interactions';
 
 //gib slep ur boens
+
 const slep = ( boens ) => new Promise(resolve => setTimeout(resolve, boens));
 
 
@@ -29,6 +30,7 @@ const slep = ( boens ) => new Promise(resolve => setTimeout(resolve, boens));
   //just make sure you're using the bot token you created for testing
 
 //first, we build our base interaction
+
 let interaction = await interactionBuilder(client,
   "<guild_id_here>",
   "<channel_id_here_for_testing>",
@@ -37,6 +39,7 @@ let interaction = await interactionBuilder(client,
 
 //initialize the types of options we'll use for testing--
   //values can come later (but defaults are nice)!
+  
 const opts = await optionsBuilder(client, "<guild_id_here>", [
   { id: 'string', type: 'STRING', value: 'cheeses' },
   { id: 'int', type: 'INTEGER', value: 1 },
@@ -62,15 +65,18 @@ const opts = await optionsBuilder(client, "<guild_id_here>", [
   //passing in an array of options built using our option ids up there ^
 
 //we start by creating a reply function to override interaction.reply
+
 const checkBalanceReply = async ( resp ) => console.log(JSON.stringify(resp));
 
 //creating the interaction "/balance @bun", which expects an opt with {type: 'USER', name: 'user', value: '<user_id>'}
   //opts.build('bun','user') finds the 'bun' opt and returns an opt with its name set to 'user'
   //we're fine with the existing value (for user id), so none is passed :)
   //we pass null because no subcommand, and i'm not sure what "APPLICATION_COMMAND" is, but it sorts us
+
 const checkBalance = interaction("APPLICATION_COMMAND", "balance", null, checkBalanceReply, [opts.build('bun','user')]);
 
 //aaand emit the interaction
+
 client.emit('interactionCreate', checkBalance);
 
 
@@ -86,6 +92,7 @@ client.emit('interactionCreate', gibMuns);
 
 //easy, let's wait a second
   //and check our bal again :)
+  
 await slep(1000);
 client.emit('interactionCreate', checkBalance);
 
