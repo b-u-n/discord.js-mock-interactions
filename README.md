@@ -52,9 +52,9 @@ const opts = await optionsBuilder(client, "<guild_id_here>", [
   { id: 'num', type: 'NUMBER', value: 3.14 }
 ]);
 
-//note two users--so we can have source / target for multi-user interactions
+//we use the 'id' field to reference opts more easily later
+  //note two users--so we can have source / target for multi-user interactions
   //without having to remember actual discord ids
-  //this is why each option has an id--make as many of whatever you need!
 
 //you'll notice we don't handle subcommand or subcommand group options--this is wise. 
   //we have an option to test subcommands, but groups isn't something we use
