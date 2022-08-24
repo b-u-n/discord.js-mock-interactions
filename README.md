@@ -115,6 +115,8 @@ client.emit('interactionCreate', gibMuns);
   `{type: 'USER', name: 'user', value: '<user_id>', member: Discord.Member, user: Discord.User}`
   
   `{type: 'INTEGER', name: 'amount', value: 1000}`
+  
+Notably, we set the value for the 'amount' option this time. That world for any option. ^-^
 
 Let's wait a second, then check our balance again. :)
   
