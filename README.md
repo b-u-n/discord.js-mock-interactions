@@ -14,7 +14,7 @@ By default, this library only reaches out to the Discord API on initialization o
 
 ## What you'll need
   1. A bot account for your CI/CD pipeline, as well as one for each dev who wants to test locally (that would be all of your devs).
-  2. A target Guild ID, Channel ID, and Role ID that the bot has access to.
+  2. A Guild ID, Channel ID, and Role ID that the bot has access to.
   3. A non-bot User ID to originate the interactions from. (These interactions are NOT posted to the Discord API, however, I would recommend a user that you own)
 
 ## Setup
