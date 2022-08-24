@@ -61,19 +61,18 @@ const opts = await optionsBuilder(client, "<guild_id_here>", [
   //so send a PR or well-defined use case and we'll sort it out. ^-^
 
 
-//create a check balance interaction from our base interaction
-  //passing in an array of options built using our option ids up there ^
+//creating the interaction "/balance @bun", which expects an opt with
+  //{type: 'USER', name: 'user', value: '<user_id>'}
 
 //we start by creating a reply function to override interaction.reply
 
 const checkBalanceReply = async ( resp ) => console.log(JSON.stringify(resp));
 
-//creating the interaction "/balance @bun", which expects an opt with {type: 'USER', name: 'user', value: '<user_id>'}
-  //opts.build('bun','user') finds the 'bun' opt and returns an opt with its name set to 'user'
-  //we're fine with the existing value (for user id), so none is passed :)
-  //we pass null because no subcommand, and i'm not sure what "APPLICATION_COMMAND" is, but it sorts us
+//then create a checkBalance interaction from our base interaction
 
 const checkBalance = interaction("APPLICATION_COMMAND", "balance", null, checkBalanceReply, [opts.build('bun','user')]);
+
+//opts.build('bun','user') finds the 'bun' opt and returns an opt with its name set to 'user'
 
 //aaand emit the interaction
 
