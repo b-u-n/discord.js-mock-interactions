@@ -63,6 +63,8 @@ We support testing subcommands, but you'll notice we don't handle subcommand or 
 
 ## Mocking an Interaction and Receiving a Reply
 
+### Interaction: /balance @bun
+
 ```
 const checkBalanceReply = async ( resp ) => console.log(JSON.stringify(resp));
 const checkBalance = interaction("APPLICATION_COMMAND", 
@@ -77,7 +79,7 @@ Let's start by creating a reply function to override **interaction.reply**. This
 
 `const checkBalanceReply = async ( resp ) => console.log(JSON.stringify(resp));`
 
-We'll be creating the interaction **/balance @bun**, which expects the following option:
+**/balance @bun** expects the following option:
 
   `{type: 'USER', name: 'user', value: '<user_id>', member: Discord.Member, user: Discord.User}` 
   
@@ -97,6 +99,7 @@ Then we simply emit the interaction. :)
 
 Okay, but what about a Sub Command with more options!
 
+### Interaction: /modifybal add @bun 1000
 ```
 const gibMunsReply = async ( resp ) => console.log(JSON.stringify(resp));
 const gibMuns = interaction("APPLICATION_COMMAND",
@@ -107,7 +110,7 @@ const gibMuns = interaction("APPLICATION_COMMAND",
 client.emit('interactionCreate', gibMuns);
 ```
 
-This one calls **/modifybal add @bun 1000**, which expects opts:
+**/modifybal add @bun 1000**, which expects opts:
   
   `{type: 'USER', name: 'user', value: '<user_id>', member: Discord.Member, user: Discord.User}`
   
