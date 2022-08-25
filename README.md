@@ -35,11 +35,6 @@ const slep = ( boens ) => new Promise(resolve => setTimeout(resolve, boens));//g
 Now, let's build our base interaction.
 
 ```
-let interaction = await interactionBuilder(client,
-  "<guild_id_here>",
-  "<channel_id_here_for_testing>",
-  "<user_id_for_interaction_source>");
-  
 let interaction = await interactionBuilder(
 	{client,
 	guildId: '<guild_id_here>',
@@ -102,14 +97,16 @@ Thankfully, **optionsBuilder** already handled all of the Discord stuff, so we c
  
 We create an interaction from our base interaction.
 
-```const checkBalance = interaction({
+```
+const checkBalance = interaction({
 	type: "APPLICATION_COMMAND",
 	name: "balance",
 	reply: checkBalanceReply,
 	options: [
 		await opts.build({id: 'bun', name:'user'})
 	]
-});```
+});
+```
 
 Here, **await opts.build('bun','user')** finds the opt with id 'bun' and returns a copy with its name set to 'user'.
 
