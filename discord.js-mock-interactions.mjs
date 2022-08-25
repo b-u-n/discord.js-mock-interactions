@@ -57,7 +57,7 @@ export const interactionBuilder = async ( client, guildId, channelId, userId) =>
   const user = member.user;
 
   return (type, commandName, subcommand, reply, opts) => {
-    let interaction = new CommandInteraction(client, {data: { channelId }, user, member, guild, channel});
+    let interaction = new CommandInteraction(client, {data: { }, user});
     interaction.type = type;
     interaction.guildId = guild.id;
     interaction.reply = reply;
