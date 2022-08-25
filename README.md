@@ -102,14 +102,16 @@ Thankfully, **optionsBuilder** already handled all of the Discord stuff, so we c
  
 We create an interaction from our base interaction.
 
-```const checkBalance = interaction({
+```
+const checkBalance = interaction({
 	type: "APPLICATION_COMMAND",
 	name: "balance",
 	reply: checkBalanceReply,
 	options: [
 		await opts.build({id: 'bun', name:'user'})
 	]
-});```
+});
+```
 
 Here, **await opts.build('bun','user')** finds the opt with id 'bun' and returns a copy with its name set to 'user'.
 
