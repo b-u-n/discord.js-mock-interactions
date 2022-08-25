@@ -1,10 +1,10 @@
 const Discord = require('discord.js');
 const { CommandInteraction } = Discord;
 
-const optionsBuilder = async ( client, guildId, opts ) => {
+const optionsBuilder = async ({ client, guildId, options }) => {
   const guild = await client.guilds.fetch(guildId);
 
-  opts = await Promise.all(opts.map(async o => {
+  opts = await Promise.all(options.map(async o => {
     switch(o.type){
       case 'USER':
         o.member = await guild.members.fetch(o.value);
@@ -24,7 +24,7 @@ const optionsBuilder = async ( client, guildId, opts ) => {
     }
     return o;
   }));
-  return {build: async ( id, name, value ) => {
+  return {build: async ({ id, name, value }) => {
     let opt = opts.find(e => e.id === id)
     if(name) opt.name = name;
     if(value) {
@@ -51,23 +51,23 @@ const optionsBuilder = async ( client, guildId, opts ) => {
   }}
 }
 
-const interactionBuilder = async ( client, guildId, channelId, userId) => {
+const interactionBuilder = async ({ client, guildId, channelId, userId }) => {
   const guild = await client.guilds.fetch(guildId);
   const member = await guild.members.fetch(userId);
   const channel = await guild.channels.fetch(channelId);
   const user = member.user;
 
-  return (type, commandName, subcommand, reply, opts) => {
+  return ({ type, name, subcommand, reply, options }) => {
     let interaction = new CommandInteraction(client, {data: { }, user});
     interaction.type = type;
     interaction.guildId = guild.id;
     interaction.reply = reply;
-    interaction.commandName = commandName;
+    interaction.commandName = name;
     interaction.guild = guild;
     interaction.member = member;
     interaction.user = user;
     interaction.options._subcommand = subcommand;
-    interaction.options._hoistedOptions = opts;
+    interaction.options._hoistedOptions = options;
     return interaction;
   }
 }
