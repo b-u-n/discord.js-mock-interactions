@@ -22,7 +22,7 @@ By default, this library only reaches out to the Discord API on initialization o
 Okay, so you already have a Discord client set up. Use that.
 
 ```
-import { client } from Discord.js;
+import { client } from 'discord.js';
 import { optionsBuilder, interactionBuilder } from 'discord.js-mock-interactions';
 
 const slep = ( boens ) => new Promise(resolve => setTimeout(resolve, boens));//gib slep ur boens
@@ -85,15 +85,13 @@ const checkBalance = interaction({
 client.emit('interactionCreate', checkBalance);
 ```
 
-Let's start by creating a reply function to override **interaction.reply**. This is where we would do verification on a successful reply to our interaction.
-
-`const checkBalanceReply = async ( resp ) => console.log(JSON.stringify(resp));`
+We start by creating a reply function to override **interaction.reply**. This is where we would do verification on a successful reply to our interaction.
 
 **/balance @bun** expects the following option:
 
   `{type: 'USER', name: 'user', value: '<user_id>', member: Discord.Member, user: Discord.User}` 
   
-Thankfully, **optionsBuilder** already handled all of the Discord stuff, so we can just use **await opts.build('bun','user')**!
+Thankfully, **optionsBuilder** already handled all of the Discord stuff, so we can just use **await opts.build({id: 'bun', name:'user'})**! It will find the opt with id 'bun' and return a copy with its name set to 'user'.
  
 We create an interaction from our base interaction.
 
@@ -107,8 +105,6 @@ const checkBalance = interaction({
 	]
 });
 ```
-
-Here, **await opts.build('bun','user')** finds the opt with id 'bun' and returns a copy with its name set to 'user'.
 
 Then we simply emit the interaction. :)
 
