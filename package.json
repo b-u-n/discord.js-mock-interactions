@@ -1,6 +1,6 @@
 {
   "name": "discord.js-mock-interactions",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Mock interactions for discord.js testing.",
   "main": "discord.js-mock-interactions.cjs",
   "module": "discord.js-mock-interactions.mjs",

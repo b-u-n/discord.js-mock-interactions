@@ -72,7 +72,7 @@ const interactionBuilder = async ({ client, guildId, channelId, userId }) => {
     interaction.guild = guild;
     interaction.member = member;
     interaction.user = user;
-    interaction.options = interaction.options || new CommandInteractionOptionResolver(client, options);
+    interaction.options = new CommandInteractionOptionResolver(client, options);
     interaction.options._subcommand = subcommand;
     interaction.isCommand = () => true;
     return interaction;
