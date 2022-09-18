@@ -13,7 +13,8 @@ Any API or library calls within your commands will still work, because we're not
 By default, this library only reaches out to the Discord API on initialization of the interaction and options, and creation of a new option value. Your commands may also reach out to the Discord API, but you'd have to go out of your way to be spammy, yeah?
 
 ## What you'll need
-  1. A test bot account for your CI/CD pipeline, as well as one for each dev who wants to test locally (that would be all of your devs).
+  1. A test bot for your CI/CD pipeline, as well as one for each dev who wants to test locally (that would be all of your devs).
+		(This requires at least Guild and Guild.Members intents)
   2. A Guild ID, Channel ID, and Role ID that the bot has access to.
   3. A non-bot User ID to originate the interactions from. (These interactions are NOT posted to the Discord API, however, I would recommend a user that you own)
 
@@ -22,11 +23,8 @@ By default, this library only reaches out to the Discord API on initialization o
 Okay, so you already have a Discord client set up. Use that.
 
 ```
-import { client } from Discord.js;
+import { client } from 'discord.js';
 import { optionsBuilder, interactionBuilder } from 'discord.js-mock-interactions';
-
-const slep = ( boens ) => new Promise(resolve => setTimeout(resolve, boens));//gib slep ur boens
-
 
 //const client = new Discord.Client({ intents: []}); //you already have your client set up, 
   //just make sure you're using the bot token you created for testing
@@ -85,15 +83,13 @@ const checkBalance = interaction({
 client.emit('interactionCreate', checkBalance);
 ```
 
-Let's start by creating a reply function to override **interaction.reply**. This is where we would do verification on a successful reply to our interaction.
-
-`const checkBalanceReply = async ( resp ) => console.log(JSON.stringify(resp));`
+We start by creating a reply function to override **interaction.reply**. This is where we would do verification on a successful reply to our interaction.
 
 **/balance @bun** expects the following option:
 
   `{type: 'USER', name: 'user', value: '<user_id>', member: Discord.Member, user: Discord.User}` 
   
-Thankfully, **optionsBuilder** already handled all of the Discord stuff, so we can just use **await opts.build('bun','user')**!
+Thankfully, **optionsBuilder** already handled all of the Discord stuff, so we can just use **await opts.build({id: 'bun', name:'user'})**! It will find the opt with id 'bun' and return a copy with its name set to 'user'.
  
 We create an interaction from our base interaction.
 
@@ -107,8 +103,6 @@ const checkBalance = interaction({
 	]
 });
 ```
-
-Here, **await opts.build('bun','user')** finds the opt with id 'bun' and returns a copy with its name set to 'user'.
 
 Then we simply emit the interaction. :)
 
@@ -146,7 +140,6 @@ Notably, we set the value for the 'amount' option this time. That works for any 
 Let's wait a second, then check our balance again. :)
   
 ```
-await slep(1000);
 client.emit('interactionCreate', checkBalance);
 ```
 

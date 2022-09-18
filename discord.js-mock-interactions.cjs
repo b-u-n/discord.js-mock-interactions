@@ -17,9 +17,11 @@ const optionsBuilder = async ({ client, guildId, options }) => {
         o.role = await guild.roles.fetch(o.value);
         break;
       case 'MENTIONABLE':
-        o.role = await guild.roles.fetch(o.value);
-        o.member = await guild.members.fetch(o.value);
-        if(o.member) o.user = o.member.user;
+        if(opt.value.indexOf('&')>0){
+          opt.role = await guild.roles.fetch(opt.value);
+        }else{
+          opt.member = await guild.members.fetch(opt.value);
+        }
       default:break;
     }
     return o;
@@ -41,9 +43,11 @@ const optionsBuilder = async ({ client, guildId, options }) => {
           opt.role = await guild.roles.fetch(opt.value);
           break;
         case 'MENTIONABLE':
-          opt.role = await guild.roles.fetch(opt.value);
-          opt.member = await guild.members.fetch(opt.value);
-          if(opt.member) opt.user = opt.member.user;
+          if(opt.value.indexOf('&')>0){
+            opt.role = await guild.roles.fetch(opt.value);
+          }else{
+            opt.member = await guild.members.fetch(opt.value);
+          }
         default:break;
       }
     }
