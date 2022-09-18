@@ -1,8 +1,9 @@
 const Discord = require('discord.js');
-const { CommandInteraction } = Discord;
+const { CommandInteraction, CommandInteractionOptionResolver } = Discord;
 
 const optionsBuilder = async ({ client, guildId, options }) => {
   const guild = await client.guilds.fetch(guildId);
+  const types = {'SUB_COMMAND': 1, 'SUB_COMMAND_GROUP': 2, 'STRING': 3, 'INTEGER': 4, 'BOOLEAN': 5, 'USER': 6, 'CHANNEL': 7, 'ROLE': 8, 'MENTIONABLE': 9, 'NUMBER': 10, 'ATTACHMENT': 11}
 
   opts = await Promise.all(options.map(async o => {
     switch(o.type){
@@ -24,6 +25,7 @@ const optionsBuilder = async ({ client, guildId, options }) => {
         }
       default:break;
     }
+    o.type=types[o.type];
     return o;
   }));
   return {build: async ({ id, name, value }) => {
@@ -70,8 +72,9 @@ const interactionBuilder = async ({ client, guildId, channelId, userId }) => {
     interaction.guild = guild;
     interaction.member = member;
     interaction.user = user;
+    interaction.options = interaction.options || new CommandInteractionOptionResolver(client, options);
     interaction.options._subcommand = subcommand;
-    interaction.options._hoistedOptions = options;
+    interaction.isCommand = () => true;
     return interaction;
   }
 }
