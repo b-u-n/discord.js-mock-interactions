@@ -78,4 +78,4 @@ const interactionBuilder = async ({ client, guildId, channelId, userId }) => {
   }
 }
 
-module.exports = { optionsBuilder, interactionBuilder }
+export { optionsBuilder, interactionBuilder }
