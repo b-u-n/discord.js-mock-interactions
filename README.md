@@ -1,6 +1,6 @@
 # Mock Interactions for unit testing discord.js slash commands
 
-Supports discord.js v14.3
+Supports discord.js v14.7.1
 
 ## TL;DR
 
