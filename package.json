@@ -31,13 +31,18 @@
     "url": "https://github.com/b-u-n/discord.js-mock-interactions/issues"
   },
   "homepage": "https://github.com/b-u-n/discord.js-mock-interactions#readme",
-  "dependencies": {
-    "discord.js": "^14.3.0"
-  },
   "exports": {
     ".": {
       "require": "./discord.js-mock-interactions.cjs",
       "import": "./discord.js-mock-interactions.mjs"
     }
+  },
+  "devDependencies": {
+    "discord.js": "^14.7.1",
+    "dotenv": "^16.0.3"
+  },
+  "dependencies": {
+    "await-to-js": "^3.0.0",
+    "snowflake-generator": "^1.0.2"
   }
 }
