@@ -1,5 +1,5 @@
 import { to } from 'await-to-js';
-import { CommandInteraction, CommandInteractionOptionResolver } from 'discord.js';
+import { CommandInteraction, CommandInteractionOptionResolver, InteractionResponse } from 'discord.js';
 import { Generator } from 'snowflake-generator';
 
 const optionsBuilder = async ({ client, guildId, options }) => {
@@ -69,12 +69,16 @@ const interactionBuilder = async ({ client, applicationId, guildId, channelId, u
   const user = member.user;
   const snowflakeGenerator = new Generator(1420070400000); 
 
-  return ({ type, name, subcommand, reply, options, commandId }) => {
+  return ({ type, name, subcommand, reply, deferReply, editReply, followUp, deleteReply, options, commandId }) => {
     let interaction = new CommandInteraction(client, {data: { type, guild, user }, user});
     interaction.id = snowflakeGenerator.generate().toString();
     interaction.type = type;
     interaction.guildId = guild.id;
     interaction.reply = reply;
+    interaction.deferReply = deferReply;
+    interaction.editReply = editReply;
+    interaction.followUp = followUp;
+    interaction.deleteReply = deleteReply;
     interaction.commandName = name;
     interaction.channelId = channelId;
     interaction.applicationId = applicationId;
