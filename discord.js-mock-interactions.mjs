@@ -50,11 +50,14 @@ const optionsBuilder = async ({ client, guildId, options }) => {
           opt.role = await guild.roles.fetch(opt.value);
           break;
         case 'MENTIONABLE':
-          if(opt.value.indexOf('&')>0){
-            opt.role = await guild.roles.fetch(opt.value);
-          }else{
-            opt.member = await guild.members.fetch(opt.value);
+          let role,member,err;
+          [role, err] = await to(guild.roles.fetch(opt.value));
+          if(err || !role){
+            [member, err] = await to(guild.members.fetch(opt.value));
+            if(!err && member) opt.member = member;
+            break;
           }
+          opt.role=role;
         default:break;
       }
     }
